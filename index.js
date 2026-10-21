@@ -9,7 +9,7 @@ const produtos = [
 ];
 
 app.get('/', (req, res) => {
-  res.send('/bem-vindo à minha loja!', );
+  res.send('bem-vindo à minha loja!', );
 });
 
 app.post('/produtos', (req, res) => {
@@ -43,3 +43,31 @@ app.get ('/produtos/:id', (req, res) => {
 });
 
 app.listen(3000, () => console.log('servidor rodando na porta 3000'));
+
+app.put('/produtos/id:', (req, res) => {
+  const id = Number(req.params.id);
+  const produto = produto.find(p => p.id === id);
+  
+  if (!produto) {
+    return res.status(404).json({ erro: 'produto nso encontrado'}); 
+  }
+
+const {nome, preco } = req.body;
+
+if (nome !== underfined) produto.nome = nome;
+if (preco !== underfined) produto.preco = preco;
+
+res.json(produto);
+});
+
+app.delete('/produtos/id:' , (req, res) => {
+  const id = Number(req.params.id);
+  const indice = produtos.findIndex(p => p.id === id);
+
+  if (indice === -1){
+    return res.status(404).json({ erro: 'Produto não encontrado'}); 
+  }
+
+  produto.splice(indice, 1);
+  res.status(204).send();
+});
